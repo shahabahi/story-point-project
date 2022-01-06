@@ -1,11 +1,15 @@
 package com.pinguin.assignment.persistences.data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import lombok.Data;
 
+import javax.persistence.*;
+
+@Data
+@Entity
+@Table(name = "tbl_sprints")
 public class Sprints {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @JoinColumn(name = "ISSUE_ID")
