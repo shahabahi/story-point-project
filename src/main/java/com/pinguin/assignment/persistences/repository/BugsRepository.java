@@ -1,8 +1,8 @@
 package com.pinguin.assignment.persistences.repository;
 
-import com.pinguin.assignment.persistences.data.Bugs;
+import com.pinguin.assignment.persistences.data.Bug;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BugsRepository extends JpaRepository<Bugs, Long> {
+public interface BugsRepository extends JpaRepository<Bug, String> {
 
 }

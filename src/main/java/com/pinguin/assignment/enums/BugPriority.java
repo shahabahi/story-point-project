@@ -15,4 +15,11 @@ public enum BugPriority {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "BugPriority{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

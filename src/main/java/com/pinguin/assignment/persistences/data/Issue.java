@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tbl_issues")
-public class Issues {
+public class Issue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,10 +17,12 @@ public class Issues {
     private String title;
     private String description;
     private Date createDate;
+
+    @Enumerated(EnumType.STRING)
     private IssueType type;
 
     @JoinColumn(name = "DEVELOPER_ID")
     @OneToOne(fetch = FetchType.LAZY  , cascade = { CascadeType.MERGE })
-    private Developers developers;
+    private Developer developer;
 
 }

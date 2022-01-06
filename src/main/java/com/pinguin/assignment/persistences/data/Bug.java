@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tbl_bugs")
-public class Bugs {
+public class Bug {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +18,6 @@ public class Bugs {
     private BugStatus status;
 
     @JoinColumn(name = "ISSUE_ID")
-    @ManyToOne(fetch = FetchType.LAZY  , cascade = { CascadeType.MERGE })
-    private Issues issueId;
+    @OneToOne(fetch = FetchType.LAZY  , cascade = { CascadeType.MERGE })
+    private Issue issueId;
 }
