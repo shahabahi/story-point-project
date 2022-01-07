@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class StoryServiceImpl implements StoryService {
-    
+
     private final StoriesRepository storiesRepository;
 
     @Autowired
@@ -24,9 +24,18 @@ public class StoryServiceImpl implements StoryService {
     public List<Story> getStoriesByStatus(StoryStatus storyStatus) throws Exception {
         return storiesRepository.findByStatus(storyStatus);
     }
+    @Override
+    public List<Story> getStories() throws Exception {
+        return storiesRepository.findAll();
+    }
 
     @Override
     public Story addStory(Story story) throws Exception {
         return storiesRepository.save(story);
+    }
+
+    @Override
+    public List<Story> updateStories(List<Story> stories) throws Exception {
+        return storiesRepository.saveAll(stories);
     }
 }

@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface StoryService {
     List<Story> getStoriesByStatus(StoryStatus storyStatus) throws Exception;
+    List<Story> getStories() throws Exception;
     Story addStory(Story story) throws Exception;
+    List<Story> updateStories(List<Story> stories) throws Exception;
 }
