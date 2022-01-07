@@ -24,6 +24,11 @@ Add new story to database
 
 In this project I used Spring Boot 2.6.2 with java 11 , Spring Data , H2 database, lombok and modelmapper to map the models. 
 
+H2 Console URL -> http://localhost:8000/h2-console
+User Name : sa
+Password : password
+Database : pinguin
+
 
 
 
