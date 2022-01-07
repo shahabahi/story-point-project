@@ -35,6 +35,6 @@ public class PlanController {
     public ResponseEntity<StoryModel> getPlan() throws Exception {
         List<Story> stories=storyService.getStories();
         List<StoryModel> storyModels = new ModelMapper().map(stories, new TypeToken<List<StoryModel>>() {}.getType());
-        return new ResponseEntity(new Plan().doPlaning(storyModels,developerService.getDevelopers()), HttpStatus.OK);
+        return new ResponseEntity(new Plan().doBestPlaning(storyModels,developerService.getDevelopers()), HttpStatus.OK);
     }
 }

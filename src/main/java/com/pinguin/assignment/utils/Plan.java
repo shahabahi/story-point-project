@@ -3,8 +3,8 @@ package com.pinguin.assignment.utils;
 
 import com.pinguin.assignment.models.response.StoryModel;
 import com.pinguin.assignment.persistences.data.Developer;
+
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -23,7 +23,7 @@ public class Plan {
         return stories;
     }
 
-    public List<StoryModel> doPlaning(List<StoryModel> stories, List<Developer> developers) {
+    public List<StoryModel> doOldPlaningWithRemoveExtraStories(List<StoryModel> stories, List<Developer> developers) {
         List<StoryModel> finalStories = sortStories(getStoryPlan(stories, developers));
         List<StoryModel> stories1 = new ArrayList<>();
         Map<Long, Integer> developersStory = new HashMap<>();
@@ -53,6 +53,50 @@ public class Plan {
         return stories1;
     }
 
+    public List<StoryModel> doBestPlaning(List<StoryModel> stories, List<Developer> developers) {
+        List<StoryModel> finalStories = sortStories(stories);
+        List<StoryModel> outputStories = new ArrayList<>();
+        Map<Long, Integer> developersStory = new HashMap<>();
+        boolean findCandidDeveloper = false;
+        int mapSkip = 0;
+        for (Developer developer : developers) {
+            developersStory.put(developer.getId(), 0);
+        }
+        for (StoryModel story : finalStories) {
+            findCandidDeveloper = false;
+            while (!findCandidDeveloper) {
+                final long developerCandidate = getMinDeveloperEstimatedPointValue(developersStory, mapSkip);
+                if (developersStory.containsKey(developerCandidate)) {
+                    int sumStories = 0;
+                    sumStories = developersStory.get(developerCandidate);
+                    if (sumStories + story.getEstimatedPointValue().getValue() <= DEVELOPER_MAX_STORIES) {
+                        findCandidDeveloper = true;
+                        mapSkip = 0;
+                        developersStory.replace(developerCandidate, sumStories + story.getEstimatedPointValue().getValue());
+                        Developer developer = getCurrentDeveloper(developers,developerCandidate);
+                        story.getIssue().setDeveloper(developer);
+                        outputStories.add(story);
+                    } else {
+                        if (mapSkip < developersStory.size() - 1) {
+                            mapSkip++;
+                        } else {
+                            findCandidDeveloper = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return outputStories;
+    }
+
+    private Developer getCurrentDeveloper(List<Developer> developers,long developerCandidate) {
+       return developers.stream()
+                .filter(cDeveloper -> developerCandidate == cDeveloper.getId())
+                .findAny()
+                .orElse(null);
+    }
+
     private List<StoryModel> getStoryPlan(List<StoryModel> stories, List<Developer> developers) {
         return getSprintStories(stories, developers);
     }
@@ -73,6 +117,16 @@ public class Plan {
                 });
         outStories.removeAll(deletedStories);
         return outStories;
+    }
+
+    public Long getMinDeveloperEstimatedPointValue(Map<Long, Integer> developersStory, int mapSkip) {
+        Comparator<? super Map.Entry<Long, Integer>> valueComparator = Comparator.comparing(Map.Entry::getValue);
+
+        Optional<Map.Entry<Long, Integer>> minValue = developersStory.entrySet()
+                .stream().skip(mapSkip).min(valueComparator);
+
+        return minValue.get().getKey();
+
     }
 }
 
