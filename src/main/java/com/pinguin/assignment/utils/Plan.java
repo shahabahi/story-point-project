@@ -1,9 +1,8 @@
 package com.pinguin.assignment.utils;
 
 
+import com.pinguin.assignment.models.response.StoryModel;
 import com.pinguin.assignment.persistences.data.Developer;
-import com.pinguin.assignment.persistences.data.Story;
-
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,9 +11,9 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Plan {
     private static final int DEVELOPER_MAX_STORIES = 10;
 
-    private List<Story> sortStories(List<Story> stories) {
+    private List<StoryModel> sortStories(List<StoryModel> stories) {
 
-        Comparator<Story> com = (o1, o2) -> {
+        Comparator<StoryModel> com = (o1, o2) -> {
             if (o1.getEstimatedPointValue().getValue() < o2.getEstimatedPointValue().getValue())
                 return 1;
             else
@@ -24,13 +23,13 @@ public class Plan {
         return stories;
     }
 
-    public List<Story> doPlaning(List<Story> stories, List<Developer> developers) {
-        List<Story> finalStories = sortStories(getStoryPlan(stories, developers));
-        List<Story> stories1 = new ArrayList<>();
+    public List<StoryModel> doPlaning(List<StoryModel> stories, List<Developer> developers) {
+        List<StoryModel> finalStories = sortStories(getStoryPlan(stories, developers));
+        List<StoryModel> stories1 = new ArrayList<>();
         Map<Long, Integer> developersStory = new HashMap<>();
         for (int i = 0; i < developers.size(); i++) {
             for (Developer developer : developers) {
-                for (Story story : finalStories) {
+                for (StoryModel story : finalStories) {
                     if (story.getIssue().getDeveloper() == null) {
                         int sumStories = 0;
                         if (developersStory.containsKey(developer.getId())) {
@@ -54,17 +53,17 @@ public class Plan {
         return stories1;
     }
 
-    private List<Story> getStoryPlan(List<Story> stories, List<Developer> developers) {
+    private List<StoryModel> getStoryPlan(List<StoryModel> stories, List<Developer> developers) {
         return getSprintStories(stories, developers);
     }
 
-    private List<Story> getSprintStories(List<Story> stories, List<Developer> developers) {
-        List<Story> outStories = stories;
+    private List<StoryModel> getSprintStories(List<StoryModel> stories, List<Developer> developers) {
+        List<StoryModel> outStories = stories;
         Integer sumStories = stories.stream()
                 .map(x -> x.getEstimatedPointValue().getValue())
                 .reduce(0, Integer::sum);
         AtomicLong extraStories = new AtomicLong(sumStories - (developers.size() * DEVELOPER_MAX_STORIES));
-        List<Story> deletedStories = new ArrayList<>();
+        List<StoryModel> deletedStories = new ArrayList<>();
         stories.stream()
                 .forEach(story -> {
                     if (extraStories.get() > 0) {

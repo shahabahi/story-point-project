@@ -3,6 +3,7 @@ package com.pinguin.assignment.persistences.data;
 import com.pinguin.assignment.enums.EnumStory;
 import com.pinguin.assignment.enums.StoryStatus;
 import lombok.Data;
+
 import javax.persistence.*;
 
 @Data
