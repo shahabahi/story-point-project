@@ -1,5 +1,6 @@
 package com.pinguin.assignment.services.impl;
 
+import com.pinguin.assignment.enums.StoryStatus;
 import com.pinguin.assignment.persistences.data.Story;
 import com.pinguin.assignment.persistences.repository.StoriesRepository;
 import com.pinguin.assignment.services.StoryService;
@@ -15,8 +16,8 @@ public class StoryServiceImpl implements StoryService {
     private StoriesRepository storiesRepository;
 
     @Override
-    public List<Story> getStories() throws Exception {
-        return storiesRepository.findAll();
+    public List<Story> getStoriesByStatus(StoryStatus storyStatus) throws Exception {
+        return storiesRepository.findByStatus(storyStatus);
     }
 
     @Override

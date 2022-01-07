@@ -2,7 +2,8 @@ package com.pinguin.assignment.persistences.data;
 
 import com.pinguin.assignment.enums.IssueType;
 import lombok.Data;
-import java.sql.Date;
+import org.hibernate.annotations.ColumnDefault;
+import java.util.Date;
 
 import javax.persistence.*;
 @Data
@@ -16,6 +17,9 @@ public class Issue {
 
     private String title;
     private String description;
+
+    @ColumnDefault( "CURRENT_TIMESTAMP" )
+    @Column( nullable = false )
     private Date createDate;
 
     @Enumerated(EnumType.STRING)

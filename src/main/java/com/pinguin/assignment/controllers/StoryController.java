@@ -5,7 +5,8 @@ import com.pinguin.assignment.services.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +16,8 @@ public class StoryController {
     @Autowired
     private StoryService storyService;
 
-    @PutMapping(path = "/add")
-    public ResponseEntity<Story> addStory(Story story) {
+    @PostMapping(path = "/add")
+    public ResponseEntity<Story> addStory(@RequestBody Story story) {
         try {
             return new ResponseEntity(storyService.addStory(story), HttpStatus.OK);
         } catch (Exception ex) {

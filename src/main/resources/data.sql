@@ -32,5 +32,5 @@ INSERT INTO tbl_stories(id,estimated_Point_Value,status,ISSUE_ID) values(10,'EIG
 INSERT INTO tbl_stories(id,estimated_Point_Value,status,ISSUE_ID) values(11,'TWO','NEW',11);
 INSERT INTO tbl_stories(id,estimated_Point_Value,status,ISSUE_ID) values(12,'TWO','NEW',12);
 INSERT INTO tbl_stories(id,estimated_Point_Value,status,ISSUE_ID) values(13,'TWO','NEW',13);
-INSERT INTO tbl_stories(id,estimated_Point_Value,status,ISSUE_ID) values(14,'TWO','NEW',14);
+INSERT INTO tbl_stories(id,estimated_Point_Value,status,ISSUE_ID) values(14,'TWO','ESTIMATED',14);
 

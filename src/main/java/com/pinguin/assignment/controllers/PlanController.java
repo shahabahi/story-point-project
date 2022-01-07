@@ -1,7 +1,7 @@
 package com.pinguin.assignment.controllers;
 
+import com.pinguin.assignment.enums.StoryStatus;
 import com.pinguin.assignment.models.response.StoryModel;
-import com.pinguin.assignment.persistences.data.Issue;
 import com.pinguin.assignment.persistences.data.Story;
 import com.pinguin.assignment.services.DeveloperService;
 import com.pinguin.assignment.services.StoryService;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +34,7 @@ public class PlanController {
                     MediaType.APPLICATION_XML_VALUE,
             })
     public ResponseEntity<StoryModel> getPlan() throws Exception {
-        List<Story> stories = storyService.getStories();
+        List<Story> stories = storyService.getStoriesByStatus(StoryStatus.NEW);
         List<StoryModel> storyModels = new ModelMapper().map(stories, new TypeToken<List<StoryModel>>() {
         }.getType());
         return new ResponseEntity(new Plan().doBestPlaning(storyModels, developerService.getDevelopers()), HttpStatus.OK);
