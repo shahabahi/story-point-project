@@ -18,4 +18,9 @@ public class StoryServiceImpl implements StoryService {
     public List<Story> getStories() throws Exception {
         return storiesRepository.findAll();
     }
+
+    @Override
+    public Story addStory(Story story) throws Exception {
+        return storiesRepository.save(story);
+    }
 }

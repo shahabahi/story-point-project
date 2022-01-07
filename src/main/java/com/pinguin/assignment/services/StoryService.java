@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StoryService {
     List<Story> getStories() throws Exception;
+    Story addStory(Story story) throws Exception;
 }
