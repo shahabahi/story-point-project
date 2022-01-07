@@ -15,6 +15,7 @@ public class Bug {
     private Long id;
 
     private BugPriority priority;
+
     private BugStatus status;
 
     @JoinColumn(name = "ISSUE_ID")

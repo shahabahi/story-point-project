@@ -19,20 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/plan")
 public class PlanController {
 
-    @Autowired
-    private StoryService storyService;
+    private final StoryService storyService;
+
+    private final DeveloperService developerService;
 
     @Autowired
-    private DeveloperService developerService;
+    public PlanController(StoryService storyService, DeveloperService developerService) {
+        this.storyService = storyService;
+        this.developerService = developerService;
+    }
 
-    @GetMapping(value = "/plan",
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE,
-            })
+    @GetMapping(produces = {
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+    })
     public ResponseEntity<StoryModel> getPlan() throws Exception {
         List<Story> stories = storyService.getStoriesByStatus(StoryStatus.NEW);
         List<StoryModel> storyModels = new ModelMapper().map(stories, new TypeToken<List<StoryModel>>() {

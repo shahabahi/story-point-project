@@ -12,8 +12,13 @@ import java.util.List;
 
 @Service
 public class StoryServiceImpl implements StoryService {
+    
+    private final StoriesRepository storiesRepository;
+
     @Autowired
-    private StoriesRepository storiesRepository;
+    public StoryServiceImpl(StoriesRepository storiesRepository) {
+        this.storiesRepository = storiesRepository;
+    }
 
     @Override
     public List<Story> getStoriesByStatus(StoryStatus storyStatus) throws Exception {

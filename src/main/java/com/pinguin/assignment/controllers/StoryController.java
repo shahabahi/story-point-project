@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/stories")
 public class StoryController {
-    @Autowired
-    private StoryService storyService;
 
-    @PostMapping(path = "/add")
+    private final StoryService storyService;
+
+    @Autowired
+    public StoryController(StoryService storyService) {
+        this.storyService = storyService;
+    }
+
+    @PostMapping
     public ResponseEntity<Story> addStory(@RequestBody Story story) {
         try {
             return new ResponseEntity(storyService.addStory(story), HttpStatus.OK);

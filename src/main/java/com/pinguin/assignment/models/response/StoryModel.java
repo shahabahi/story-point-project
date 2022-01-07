@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class StoryModel implements Serializable {
+
     private Long id;
 
     @Enumerated(EnumType.STRING)
