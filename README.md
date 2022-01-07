@@ -22,6 +22,8 @@ Return list of stories
 POST -> http://localhost:8000/stories
 Add new story to database
 
+In this project I used Spring Boot 2.6.2 with java 11 , Spring Data , H2 database, lombok and modelmapper to map the models. 
+
 
 
 
